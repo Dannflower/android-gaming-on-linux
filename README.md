@@ -221,4 +221,4 @@ Once the maximum size of `data.qcow2` has been increased, we need to expand the 
    sudo modprobe -r nbd
    ```
 
-With that, your virtual device will now have plenty of extra space to store applications!
+With that, your virtual device will now have plenty of extra space to store applications! This process can be repeated later if you find that your device needs more storage space.
