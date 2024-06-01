@@ -73,7 +73,7 @@ With Open GApps installed, you'll now find the Play Store in your list of instal
 
 ## Desktop Shortcuts & App Specific Launchers
 
-If you want to be able to directly launch your virtual device from your desktop environment, follow these steps:
+If you want to be able to directly launch your virtual device from your desktop environment, follow the steps below. We'll use Arknights for educational purposes just to demonstrate how you could set this up for any app of your choosing.
 
 1. For Gnome users, you can create a new `.desktop` file in your home directory (we'll use Arknights as an example)
    
