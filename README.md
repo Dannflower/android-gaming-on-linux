@@ -17,6 +17,30 @@
 3. [Launch the virtual device](https://docs.genymotion.com/desktop/Get_started/014_Basic_steps/#launch-a-device)
 4. [Install Open GApps](https://docs.genymotion.com/desktop/04_Emulating_sensors_and_features/#open-gapps)
 
+## Adding Support for ARM-Based Games
+
+If you are running your Linux OS on a non-ARM processor such as Intel or AMD, then you'll need to install a translation package in your virtual device.
+
+1. Start your virtual device
+
+1. Download the [Genymotion ARM Translation for Android 9.0](https://github.com/m9rco/Genymotion_ARM_Translation/blob/master/package/Genymotion-ARM-Translation_for_9.0.zip)
+   - For older versions, see the list [here](https://github.com/m9rco/Genymotion_ARM_Translation)
+   - Support for newer versions of Android is limited
+
+1. With your virtual device running, drag the `Genymotion-ARM-Translation_for_9.0.zip` into the emulator window
+   
+1. Accept Genymotion's prompt to flash the archive
+
+## Installing Apps & Games
+
+With Open GApps installed, you'll now find the Play Store in your list of installed applications in your virtual device. Log into the Play Store with your Google account and you should be able to install any apps and games you want.
+
+   - Note: Not seeing a game or app listed in the store? Check the following:
+     
+      - Make sure you've installed the ARM translation package as described above, otherwise the Play Store will hide ARM based games as they will be incompatible with your virtual device.
+        
+      - Are you running a phone-based virtual device or a tablet-based device? Not all apps & games are compatible with both form factors and the Play Store will hide the apps from you.
+
 ## Increasing Device Storage
 
 By default, the data storage capacity of many of the images provided by Genymotion are quite small and will run out of space after installing even a single game. To work around this, you need to increase the size of the data partition for your virtual device. There are a few device images with larger starting storage sizes (i.e. 64 GB), but even that may be insufficient if you want to install more than a few games.
