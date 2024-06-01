@@ -1,3 +1,33 @@
+# Android Gaming on Linux
+
+The following guide will walk you through using Genymotion to configure an Android emulator for playing games (and using general apps) within a Linux desktop environment.
+
+## Disclaimer
+
+The information provided in this guide is for educational purposes only. Emulation is not always 100% stable, and software crashes may occur, potentially resulting in data loss. I strongly suggest using this tool only for apps and games where crashes or data loss would not cause significant loss to yourself or others. I am not responsible for any data loss, damage, or other consequences that may result from following this guide. Proceed at your own risk.
+
+Hopefully this guide saves you some time going down the rabbit hole of Android gaming on Linux!
+
+### ⚠️ About `adb` ⚠️
+
+This guide makes use of a tool called `adb` which could be used to automate anything in the emulator should you be crafty enough.
+
+DO NOT DO THIS IN GAMES.
+
+Any form of automation in games could potentially get your account flagged for botting and eventually suspended or even permanently banned. Use `adb` to launch your apps and then leave it at the door or proceed at your own risk.
+
+## Table of Contents
+
+1. [Installing Genymotion](#installing-genymotion)
+1. [Creating & Configuring a Virtual Device](#creating-&-configuring-a-virtual-device)
+1. [Adding Support for ARM-Based Games](#adding-support-for-arm-based-games)
+1. [Installing Apps & Games](#installing-apps-&-games)
+1. [Desktop Shortcuts & App Specific Launchers](#desktop-shortcuts-&-app-specific-launchers)
+1. [Increasing Device Storage](#increasing-device-storage)
+   - [Resizing the Disk Image for Additional Storage](#resizing-the-disk-image-for-additional-storage)
+   - [Expanding the Data Partition](#expanding-the-data-partition)
+
+
 ## Installing Genymotion
 
 1. Download and install [Genymotion Desktop](https://www.genymotion.com/product-desktop/download/).
@@ -41,6 +71,70 @@ With Open GApps installed, you'll now find the Play Store in your list of instal
         
       - Are you running a phone-based virtual device or a tablet-based device? Not all apps & games are compatible with both form factors and the Play Store will hide the apps from you.
 
+## Desktop Shortcuts & App Specific Launchers
+
+If you want to be able to directly launch your virtual device from your desktop environment, follow these steps:
+
+1. For Gnome users, you can create a new `.desktop` file in your home directory (we'll use Arknights as an example)
+   
+   ```bash
+   touch ~/.local/share/applications/arknights-genymotion.desktop
+   ```
+   
+1. Populate the `.desktop` file with the following text (replacing <user> with your own user name)
+   
+   ```
+   [Desktop Entry]
+   Encoding=UTF-8
+   Version=1.0
+   Type=Application
+   Name=Arknights
+   GenericName=Arknights Android Emulator
+   Icon=/home/<user>/Pictures/Icons/arknights.webp
+   Exec=/home/<user>/Scripts/arknights.sh
+   Categories=Development;Emulator;Game;
+   ```
+   - Note: You'll need to supply the icon yourself (or just reference an existing icon on your system if you prefer)
+   
+1. In your home directory, add a new directory called `Scripts` and navigate to it
+   ```bash
+   mkdir ~/Scripts
+   cd ~/Scripts
+   ```
+
+1. In the `Scripts` directory create a new script
+
+   ```bash
+   touch arknights.sh
+   ```
+
+1. Populate the script with the following text
+
+   ```bash
+   # !/bin/bash
+   
+   set -e
+   
+   ~/bin/genymotion-3.7.1/genymotion/gmtool admin start "Google Pixel 7 Pro"
+   
+   # Launch the app directly by starting the context by name
+   ~/bin/genymotion-3.7.1/genymotion/tools/adb shell am start -n com.YoStarEN.Arknights/com.u8.sdk.U8UnityContext
+   
+   # Alternatively, if you don't know the context, you can simulate a tap on the screen for where you have placed the app's icon
+   # The sleep is added to allow the virtual device to finish initializing so the tap actually registers correctly
+   #sleep 2
+   #~/bin/genymotion-3.7.1/genymotion/tools/adb shell input tap 720 1280
+   
+   # Rotate the screen to whatever orientation you prefer for this specific app
+   ~/bin/genymotion-3.7.1/genymotion/genyshell -c "rotation setangle 90"
+   ```
+
+   - Note: Personally, I'm a fan of the tap approach as various apps/games *might* be able to detect that you launched the game via `adb` or some other automation tool and even though you're not using it maliciously, the app might defensively flag your account over zealously.
+
+### ⚠️ About `adb` ⚠️
+
+As you may have inferred from the script, `adb` could be used to automate anything in the emulator should you be crafty enough. DO NOT DO THIS IN GAMES. Any form of automation in games, like Arknights, can get your account flagged for botting and eventually suspended or even permanently banned. Use `adb` to launch your apps and then leave it at the door or proceed at your own risk.
+
 ## Increasing Device Storage
 
 By default, the data storage capacity of many of the images provided by Genymotion are quite small and will run out of space after installing even a single game. To work around this, you need to increase the size of the data partition for your virtual device. There are a few device images with larger starting storage sizes (i.e. 64 GB), but even that may be insufficient if you want to install more than a few games.
@@ -52,11 +146,13 @@ If you find your device is running out of memory, follow the steps below.
 1. If the virtual device is running, shut it down (just hit the close window X, Genymotion takes care of gracefully shutting down the device)
    
 1. Navigate to the directory containing the deployed data of your virtual device
+
    ```bash
    cd ~/.Genymobile/Genymotion/deployed/<Device Name>
    ```
    
 1. Resize the disk image to the maximum size you want your virtual device's storage to be able to use (i.e. 50 GB in this example)
+
    ```bash
    qemu-img resize data.qcow2 50G
    ```
@@ -67,27 +163,32 @@ If you find your device is running out of memory, follow the steps below.
 Once the maximum size of `data.qcow2` has been increased, we need to expand the data partition in the disk image to enable it to use that newly added space.
 
 1. Navigate to the directory containing the deployed data of your virtual device
+
    ```bash
    cd ~/.Genymobile/Genymotion/deployed/<Device Name>
    ```
 
 1. Enable the `nbd` kernel module
+
    ```bash
    sudo modprobe nbd max_part=10
    ```
    
 1. Mount the block device
+
    ```bash
    sudo qemu-nbd -c /dev/nbd0 data.qcow2
    ```
 
 1. Install GParted if needed:
+
    ```bash
    sudo apt update
    sudo apt install -y gparted
    ```
 
 1. Open the block device in GParted
+
    ```bash
    gparted /dev/nbd0
    ```
@@ -109,11 +210,13 @@ Once the maximum size of `data.qcow2` has been increased, we need to expand the 
 1. Close GParted
    
 1. Unmount the block device
+
    ```bash
    sudo qemu-nbd -d /dev/nbd0
    ```
    
 1. (Optional) Unload the `nbd` kernel module
+
    ```bash
    sudo modprobe -r nbd
    ```
