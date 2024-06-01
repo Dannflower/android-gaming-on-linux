@@ -19,10 +19,10 @@ Any form of automation in games could potentially get your account flagged for b
 ## Table of Contents
 
 1. [Installing Genymotion](#installing-genymotion)
-1. [Creating & Configuring a Virtual Device](#creating-&-configuring-a-virtual-device)
+1. [Creating & Configuring a Virtual Device](#creating--configuring-a-virtual-device)
 1. [Adding Support for ARM-Based Games](#adding-support-for-arm-based-games)
-1. [Installing Apps & Games](#installing-apps-&-games)
-1. [Desktop Shortcuts & App Specific Launchers](#desktop-shortcuts-&-app-specific-launchers)
+1. [Installing Apps & Games](#installing-apps--games)
+1. [Desktop Shortcuts & App Specific Launchers](#desktop-shortcuts--app-specific-launchers)
 1. [Increasing Device Storage](#increasing-device-storage)
    - [Resizing the Disk Image for Additional Storage](#resizing-the-disk-image-for-additional-storage)
    - [Expanding the Data Partition](#expanding-the-data-partition)
