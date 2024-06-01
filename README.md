@@ -17,11 +17,28 @@
 3. [Launch the virtual device](https://docs.genymotion.com/desktop/Get_started/014_Basic_steps/#launch-a-device)
 4. [Install Open GApps](https://docs.genymotion.com/desktop/04_Emulating_sensors_and_features/#open-gapps)
 
-By default, the data storage capacity of the images provided by Genymotion are quite small and will run out after installing even a single game. To work around this, you need to increase the size of the data partition for your virtual device.
+## Increasing Device Storage
+
+By default, the data storage capacity of many of the images provided by Genymotion are quite small and will run out of space after installing even a single game. To work around this, you need to increase the size of the data partition for your virtual device. There are a few device images with larger starting storage sizes (i.e. 64 GB), but even that may be insufficient if you want to install more than a few games.
+
+If you find your device is running out of memory, follow the steps below.
+
+### Resizing the Disk Image for Additional Storage
 
 1. If the virtual device is running, shut it down (just hit the close window X, Genymotion takes care of gracefully shutting down the device)
+   
+1. Navigate to the directory containing the deployed data of your virtual device
+   ```bash
+   cd ~/.Genymobile/Genymotion/deployed/<Device Name>
+   ```
+   
+1. Resize the disk image to the maximum size you want your virtual device's storage to be able to use (i.e. 50 GB in this example)
+   ```bash
+   qemu-img resize data.qcow2 50G
+   ```
+   - Note: `data.qcow2` will not immediately become the size you select, instead it will slowly grow up to this maximum as your virtual device saves data to the disk image as it is [thinly provisioned](https://en.wikipedia.org/wiki/Thin_provisioning)
 
-## Expanding the Data Partition
+### Expanding the Data Partition
 
 Once the maximum size of `data.qcow2` has been increased, we need to expand the data partition in the disk image to enable it to use that newly added space.
 
@@ -29,7 +46,8 @@ Once the maximum size of `data.qcow2` has been increased, we need to expand the 
    ```bash
    cd ~/.Genymobile/Genymotion/deployed/<Device Name>
    ```
-1. Enable the NBD kernel module
+
+1. Enable the `nbd` kernel module
    ```bash
    sudo modprobe nbd max_part=10
    ```
@@ -52,10 +70,28 @@ Once the maximum size of `data.qcow2` has been increased, we need to expand the 
    - Note: If GParted opens with the error: `Can't have a partition outside the disk!` just click the `Ignore` button
 
 1. Right-click the partition with the label `data` (most likely `/dev/nbd0p3`) and select `Delete`
+   
 1. Right-click the `unallocated` partition and select `New`
-1. Set the `New size (MiB)` property to the size you expanded `data.qcow2` to be (i.e. 50000 MiB if you used the suggested size), set the `Label` property to `data` and click `Add`
+   
+1. Configure the new partition with the following properties
+   - Set `New size (MiB)` to be the size you expanded `data.qcow2` to be (i.e. 50000 MiB if you used the suggested size)
+   - Set `Label` to be `data`
+     
+1. Click `Add`
+   
 1. Click the green check mark near the top of the GParted window to `Apply all operations` to the block device
    - Note: GParted may raise more `Can't have a partition outside the disk!` errors, just the `Ignore` button on each pop-up
+     
 1. Close GParted
+   
+1. Unmount the block device
+   ```bash
+   sudo qemu-nbd -d /dev/nbd0
+   ```
+   
+1. (Optional) Unload the `nbd` kernel module
+   ```bash
+   sudo modprobe -r nbd
+   ```
 
 With that, your virtual device will now have plenty of extra space to store applications!
