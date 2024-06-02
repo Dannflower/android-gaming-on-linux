@@ -47,7 +47,7 @@ Any form of automation in games could potentially get your account flagged for b
 
      | Form Factor / Type | Name | Processor(s) | Memory Size | VM Heap Size | Resolution | Density |
      | ------------------ | ---- | ------------ | ----------- | ------------ | ---------- | ------- |
-     | Phone | Google Pixel 7 Pro | 8 | 6000 MB | 256 MB | 1440 x 2560 (9:16) | 640 - XXXHDPI |
+     | Phone | Google Pixel 7 Pro | 8 | 6000 MB (Setting this too close to your actual system RAM capacity might make your system unstable, leave headroom!) | 256 MB | 1440 x 2560 (9:16) | 640 - XXXHDPI |
 
 3. [Launch the virtual device](https://docs.genymotion.com/desktop/Get_started/014_Basic_steps/#launch-a-device)
 4. [Install Open GApps](https://docs.genymotion.com/desktop/04_Emulating_sensors_and_features/#open-gapps)
