@@ -1,6 +1,11 @@
 # Android Gaming on Linux
 
-The following guide will walk you through using Genymotion to configure an Android emulator for playing games (and using general apps) within a Linux desktop environment.
+The following guide will walk you through using Genymotion to configure an Android emulator for playing games (and using general apps) within a Linux desktop environment. This guide will probably be of particular interest to folks with Nvidia GPUs as Genymotion supports Nvidia GPU acceleration under Wayland.
+
+I wrote this with the following system configuration:
+- Ubuntu 24.04
+- Gnome 46
+- Nvidia GTX 1080 GPU (Drivers ver. 555.42.02)
 
 ## Disclaimer
 
