@@ -200,6 +200,7 @@ Once the maximum size of `data.qcow2` has been increased, we need to expand the 
    - Note: If GParted opens with the error: `Can't have a partition outside the disk!` just click the `Ignore` button
 
 1. Right-click the partition with the label `data` (most likely `/dev/nbd0p3`) and select `Delete`
+      - ⚠️ Note: This will delete any data in the partion! If you have data in the partition you want to keep, you can try simply resizing the partition instead and skipping to step 10. Just remember, there is always a chance for data loss when altering partitions, so back up anything you don't want to lose regardless of how you adjust the partition.
    
 1. Right-click the `unallocated` partition and select `New`
    
