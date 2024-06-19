@@ -5,7 +5,7 @@ The following guide will walk you through using Genymotion to configure an Andro
 I wrote this with the following system configuration:
 - Ubuntu 24.04
 - Gnome 46
-- Nvidia GTX 1080 GPU (Drivers ver. 555.42.02)
+- Nvidia GTX 1080 GPU (Drivers ver. 555)
 
 ## Disclaimer
 
