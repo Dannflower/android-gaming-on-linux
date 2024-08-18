@@ -37,7 +37,8 @@ Any form of automation in games could potentially get your account flagged for b
 
 1. Download and install [Genymotion Desktop](https://www.genymotion.com/product-desktop/download/).
 2. Follow the [installation instructions](https://docs.genymotion.com/desktop/Get_started/013_Linux_install/) to install Genymotion in the directory of your choice.
-3. Launch Genymotion Desktop and follow the on-screen instruction to create an account (note: personal use is free as of writing this guide).
+   - For simplicity, this guide installs Genymotion in: `~/bin`
+4. Launch Genymotion Desktop and follow the on-screen instruction to create an account (note: personal use is free as of writing this guide).
 
 ## Creating & Configuring a Virtual Device
 
@@ -133,8 +134,9 @@ If you want to be able to launch your virtual device directly into a specific ap
    # Rotate the screen to whatever orientation you prefer for this specific app
    ~/bin/genymotion-3.7.1/genymotion/genyshell -c "rotation setangle 90"
    ```
-
-   - Note: Personally, I'm a fan of the tap approach as various apps/games *might* be able to detect that you launched the game via `adb` or some other automation tool and even though you're not using it maliciously, the app might defensively flag your account over zealously.
+   #### Notes:
+   - If you installed Genymotion into a different path, be sure to update the script to reflect your installation location.
+   - Personally, I'm a fan of the tap approach as various apps/games *might* be able to detect that you launched the game via `adb` or some other automation tool and even though you're not using it maliciously, the app might defensively flag your account over zealously.
 
 ### ⚠️ About `adb` ⚠️
 
