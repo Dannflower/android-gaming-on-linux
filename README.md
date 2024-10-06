@@ -2,10 +2,9 @@
 
 The following guide will walk you through using Genymotion to configure an Android emulator for playing games (and using general apps) within a Linux desktop environment. This guide will probably be of particular interest to folks with Nvidia GPUs as Genymotion supports Nvidia GPU acceleration under Wayland.
 
-I wrote this with the following system configuration:
-- Ubuntu 24.04
-- Gnome 46
-- Nvidia GTX 1080 GPU (Drivers ver. 555)
+I wrote this with the following system configurations:
+- Ubuntu 24.04 / GNOME 46
+- Fedora 40 / GNOME 46
 
 ## Disclaimer
 
@@ -31,6 +30,7 @@ Any form of automation in games could potentially get your account flagged for b
 1. [Increasing Device Storage](#increasing-device-storage)
    - [Resizing the Disk Image for Additional Storage](#resizing-the-disk-image-for-additional-storage)
    - [Expanding the Data Partition](#expanding-the-data-partition)
+1. [Troubleshooting](#troubleshooting)
 
 
 ## Installing Genymotion
@@ -228,5 +228,11 @@ Once the maximum size of `data.qcow2` has been increased, we need to expand the 
    ```bash
    sudo modprobe -r nbd
    ```
-
+   
 With that, your virtual device will now have plenty of extra space to store applications! This process can be repeated later if you find that your device needs more storage space.
+
+## Troubleshooting
+
+### Startup script not working / Genymotion thinks device is booting endlessly
+
+If you create a startup script and it doesn't seem to execute (especially if you are using ADB/gmtool and you notice that in the Genymotion menu it says your device is "booting" despite it having already launched, you may need to [enable USB debugging](https://developer.android.com/studio/debug/dev-options).
