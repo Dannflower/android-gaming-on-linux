@@ -121,18 +121,18 @@ If you want to be able to launch your virtual device directly into a specific ap
    
    set -e
    
-   ~/bin/genymotion-3.7.1/genymotion/gmtool admin start "Google Pixel 7 Pro"
+   ~/bin/genymotion/gmtool admin start "Google Pixel 7 Pro"
    
    # Launch the app directly by starting the context by name
-   ~/bin/genymotion-3.7.1/genymotion/tools/adb shell am start -n com.YoStarEN.Arknights/com.u8.sdk.U8UnityContext
+   ~/bin/genymotion/tools/adb shell am start -n com.YoStarEN.Arknights/com.u8.sdk.U8UnityContext
    
    # Alternatively, if you don't know the context, you can simulate a tap on the screen for where you have placed the app's icon
    # The sleep is added to allow the virtual device to finish initializing so the tap actually registers correctly
    #sleep 2
-   #~/bin/genymotion-3.7.1/genymotion/tools/adb shell input tap 720 1280
+   #~/bin/genymotion/tools/adb shell input tap 720 1280
    
    # Rotate the screen to whatever orientation you prefer for this specific app
-   ~/bin/genymotion-3.7.1/genymotion/genyshell -c "rotation setangle 90"
+   ~/bin/genymotion/genyshell -c "rotation setangle 90"
    ```
    #### Notes:
    - If you installed Genymotion into a different path, be sure to update the script to reflect your installation location.
